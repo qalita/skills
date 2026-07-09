@@ -151,6 +151,7 @@ this skill teaches the generic/public deployment path only.
 ## Execution notes
 
 - New repo is git-initialized locally at `~/qalita/skills/` (branch `main`).
-- A remote GitHub repo `qalita-io/skills` will be created (private, given
-  mixed internal/client audience — can be made public later) and pushed to
-  during implementation.
+- A remote GitHub repo `qalita-io/skills` will be created **private** and
+  pushed to during implementation. Confirmed intent to make it **public**
+  later (once content is reviewed), but that switch is out of scope for
+  this iteration.
