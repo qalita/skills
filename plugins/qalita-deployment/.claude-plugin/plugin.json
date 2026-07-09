@@ -1,0 +1,15 @@
+{
+  "name": "qalita-deployment",
+  "displayName": "QALITA Deployment",
+  "description": "Deploy and configure the QALITA platform via Docker Compose or Helm, including LDAP, SMTP, and worker deployment.",
+  "version": "0.1.0",
+  "author": {
+    "name": "QALITA SAS",
+    "email": "contact@qalita.io"
+  },
+  "homepage": "https://github.com/qalita-io/skills",
+  "repository": "https://github.com/qalita-io/skills",
+  "license": "Apache-2.0",
+  "keywords": ["qalita", "deployment", "helm", "docker-compose", "ldap"],
+  "skills": "./skills/"
+}
