@@ -1,0 +1,32 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "qalita-skills",
+  "description": "QALITA's official Claude Code skills: create data quality packs, use the qalita CLI/platform, and deploy the QALITA platform.",
+  "owner": {
+    "name": "QALITA SAS",
+    "email": "contact@qalita.io"
+  },
+  "plugins": [
+    {
+      "name": "qalita-pack-creation",
+      "description": "Create and publish QALITA data quality packs (properties.yaml, pack_conf.json, main.py pattern, versioning, CI publish).",
+      "category": "development",
+      "source": "./plugins/qalita-pack-creation",
+      "homepage": "https://github.com/qalita-io/skills/tree/main/plugins/qalita-pack-creation"
+    },
+    {
+      "name": "qalita-platform-cli",
+      "description": "Use the qalita CLI/worker to authenticate, push sources and packs, run analyses, and manage jobs on the QALITA platform.",
+      "category": "data",
+      "source": "./plugins/qalita-platform-cli",
+      "homepage": "https://github.com/qalita-io/skills/tree/main/plugins/qalita-platform-cli"
+    },
+    {
+      "name": "qalita-deployment",
+      "description": "Deploy and configure the QALITA platform via Docker Compose or Helm, including LDAP, SMTP, and worker deployment.",
+      "category": "infrastructure",
+      "source": "./plugins/qalita-deployment",
+      "homepage": "https://github.com/qalita-io/skills/tree/main/plugins/qalita-deployment"
+    }
+  ]
+}
