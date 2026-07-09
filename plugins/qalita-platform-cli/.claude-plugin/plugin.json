@@ -1,0 +1,15 @@
+{
+  "name": "qalita-platform-cli",
+  "displayName": "QALITA Platform CLI",
+  "description": "Use the qalita CLI/worker to authenticate, push sources and packs, run analyses, and manage jobs on the QALITA platform.",
+  "version": "0.1.0",
+  "author": {
+    "name": "QALITA SAS",
+    "email": "contact@qalita.io"
+  },
+  "homepage": "https://github.com/qalita-io/skills",
+  "repository": "https://github.com/qalita-io/skills",
+  "license": "Apache-2.0",
+  "keywords": ["qalita", "cli", "worker", "data-quality"],
+  "skills": "./skills/"
+}
