@@ -9,8 +9,8 @@ The platform's control plane is: **backend** (API), **frontend**, **documentatio
 
 ## Requirements
 
-| OS | CPU | RAM | Storage |
-|---|---|---|---|
+| OS          | CPU    | RAM    | Storage     |
+| ----------- | ------ | ------ | ----------- |
 | linux/amd64 | 4 vCPU | 16 GiB | 100 GiB SSD |
 
 Workers must be able to reach the backend's ingress/endpoint over the network — check firewall/proxy rules before deploying workers remotely.
@@ -28,14 +28,14 @@ Minimal stack (`docker-compose.yaml`): `backend`, `doc`, `frontendprod`, `db` (p
 
 Key backend env vars:
 
-| Group | Variables |
-|---|---|
-| Database | `POSTGRESQL_SERVER`, `POSTGRESQL_PORT`, `POSTGRESQL_USERNAME`, `POSTGRESQL_PASSWORD`, `POSTGRESQL_DATABASE` |
-| Cache | `REDIS_SERVER`, `REDIS_PORT`, `REDIS_PASSWORD` |
-| Object storage | `QALITA_S3_URL`, `QALITA_S3_KEY_ID`, `QALITA_S3_KEY_SECRET` |
-| License | `QALITA_LICENSE_USER`, `QALITA_LICENSE_KEY`, `QALITA_LICENSE_REGISTRY_URL` |
-| Public URLs | `QALITA_PUBLIC_PLATFORM_URL`, `QALITA_PUBLIC_DOC_URL`, `QALITA_PUBLIC_API_URL` |
-| Core | `QALITA_SECRET_KEY`, `QALITA_ADMIN_USERNAME`, `QALITA_ADMIN_PASSWORD`, `QALITA_ENV`, `QALITA_AUTH_MODE`, `QALITA_ORGANIZATION_NAME` |
+| Group          | Variables                                                                                                                           |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Database       | `POSTGRESQL_SERVER`, `POSTGRESQL_PORT`, `POSTGRESQL_USERNAME`, `POSTGRESQL_PASSWORD`, `POSTGRESQL_DATABASE`                         |
+| Cache          | `REDIS_SERVER`, `REDIS_PORT`, `REDIS_PASSWORD`                                                                                      |
+| Object storage | `QALITA_S3_URL`, `QALITA_S3_KEY_ID`, `QALITA_S3_KEY_SECRET`                                                                         |
+| License        | `QALITA_LICENSE_USER`, `QALITA_LICENSE_KEY`, `QALITA_LICENSE_REGISTRY_URL`                                                          |
+| Public URLs    | `QALITA_PUBLIC_PLATFORM_URL`, `QALITA_PUBLIC_DOC_URL`, `QALITA_PUBLIC_API_URL`                                                      |
+| Core           | `QALITA_SECRET_KEY`, `QALITA_ADMIN_USERNAME`, `QALITA_ADMIN_PASSWORD`, `QALITA_ENV`, `QALITA_AUTH_MODE`, `QALITA_ORGANIZATION_NAME` |
 
 ```bash
 docker compose up -d
@@ -57,14 +57,14 @@ You **must** override defaults with your own `values.yaml` — see the chart's v
 
 Network matrix (what talks to what):
 
-| Component | Ingress | Service:Port |
-|---|---|---|
-| Backend Database | — | `qalita-postgresql:5432` |
-| Backend Caching | — | `qalita-redis-master:6379` |
-| Backend Object Storage | — | `seaweedfs-s3:8333` |
-| Backend Server | `api.domain.com` | `qalita-backend-service:3080` |
-| Documentation | `doc.domain.com` | `qalita-doc-service:80` |
-| Frontend | `domain.com` | `qalita-frontend-service:3000` |
+| Component              | Ingress          | Service:Port                   |
+| ---------------------- | ---------------- | ------------------------------ |
+| Backend Database       | —                | `qalita-postgresql:5432`       |
+| Backend Caching        | —                | `qalita-redis-master:6379`     |
+| Backend Object Storage | —                | `seaweedfs-s3:8333`            |
+| Backend Server         | `api.domain.com` | `qalita-backend-service:3080`  |
+| Documentation          | `doc.domain.com` | `qalita-doc-service:80`        |
+| Frontend               | `domain.com`     | `qalita-frontend-service:3000` |
 
 ## Authentication modes
 
@@ -74,16 +74,16 @@ Network matrix (what talks to what):
 - `saml` — Microsoft Entra ID (`MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`, `MICROSOFT_TENANT_ID`, `MICROSOFT_REDIRECT_URL`) or Google OAuth (`GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET`, `GOOGLE_OAUTH_REDIRECT_URL`).
 - `ldap` — bind against an existing directory:
 
-| Variable | Purpose |
-|---|---|
-| `LDAP_SERVER` | e.g. `ldap://ldap.company.com:389` |
-| `LDAP_DN` | base DN, e.g. `dc=company,dc=com` |
-| `LDAP_SEARCH_USER` / `LDAP_SEARCH_PASSWORD` | bind account used to search the directory |
-| `LDAP_SEARCH_USER_FILTER` | e.g. `(&(objectClass=person)(uid=%s))` |
-| `LDAP_SEARCH_GROUP_FILTER` | e.g. `(&(objectClass=posixGroup)(memberUid=%s))` |
-| `LDAP_GROUP_DN` | optional group search base |
-| `LDAP_ROLE_MAPPING` | maps LDAP groups to platform roles, e.g. `admin:cn=admins,dc=company,dc=com;dataengineer:cn=engineers,dc=company,dc=com` |
-| `LDAP_TLS` | `true`/`false` |
+| Variable                                    | Purpose                                                                                                                  |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `LDAP_SERVER`                               | e.g. `ldap://ldap.company.com:389`                                                                                       |
+| `LDAP_DN`                                   | base DN, e.g. `dc=company,dc=com`                                                                                        |
+| `LDAP_SEARCH_USER` / `LDAP_SEARCH_PASSWORD` | bind account used to search the directory                                                                                |
+| `LDAP_SEARCH_USER_FILTER`                   | e.g. `(&(objectClass=person)(uid=%s))`                                                                                   |
+| `LDAP_SEARCH_GROUP_FILTER`                  | e.g. `(&(objectClass=posixGroup)(memberUid=%s))`                                                                         |
+| `LDAP_GROUP_DN`                             | optional group search base                                                                                               |
+| `LDAP_ROLE_MAPPING`                         | maps LDAP groups to platform roles, e.g. `admin:cn=admins,dc=company,dc=com;dataengineer:cn=engineers,dc=company,dc=com` |
+| `LDAP_TLS`                                  | `true`/`false`                                                                                                           |
 
 The local `QALITA_ADMIN_USERNAME` account always bypasses LDAP, regardless of `QALITA_AUTH_MODE` — useful as a break-glass login.
 
@@ -91,13 +91,13 @@ The local `QALITA_ADMIN_USERNAME` account always bypasses LDAP, regardless of `Q
 
 ## Mail / SMTP
 
-| Variable | Purpose |
-|---|---|
-| `MAIL_SERVER`, `MAIL_PORT` | SMTP relay host/port |
-| `MAIL_USERNAME`, `MAIL_PASSWORD` | SMTP auth |
-| `MAIL_FROM`, `MAIL_FROM_NAME` | sender identity |
-| `MAIL_STARTTLS`, `MAIL_SSL_TLS` | transport security (mutually exclusive) |
-| `MAIL_USE_CREDENTIALS`, `MAIL_VALIDATE_CERTS` | auth/cert enforcement toggles |
+| Variable                                      | Purpose                                 |
+| --------------------------------------------- | --------------------------------------- |
+| `MAIL_SERVER`, `MAIL_PORT`                    | SMTP relay host/port                    |
+| `MAIL_USERNAME`, `MAIL_PASSWORD`              | SMTP auth                               |
+| `MAIL_FROM`, `MAIL_FROM_NAME`                 | sender identity                         |
+| `MAIL_STARTTLS`, `MAIL_SSL_TLS`               | transport security (mutually exclusive) |
+| `MAIL_USE_CREDENTIALS`, `MAIL_VALIDATE_CERTS` | auth/cert enforcement toggles           |
 
 Used for notification emails (invites, alerts). Point `MAIL_SERVER`/`MAIL_PORT` at your real relay in production — dev stacks typically use a local catch-all SMTP instead.
 
