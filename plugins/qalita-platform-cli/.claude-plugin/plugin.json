@@ -7,8 +7,8 @@
     "name": "QALITA SAS",
     "email": "contact@qalita.io"
   },
-  "homepage": "https://github.com/qalita-io/skills",
-  "repository": "https://github.com/qalita-io/skills",
+  "homepage": "https://github.com/qalita/skills",
+  "repository": "https://github.com/qalita/skills",
   "license": "Apache-2.0",
   "keywords": ["qalita", "cli", "worker", "data-quality"],
   "skills": "./skills/"

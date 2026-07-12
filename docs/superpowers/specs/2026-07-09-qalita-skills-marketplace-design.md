@@ -6,7 +6,7 @@ Date: 2026-07-09
 
 Centralize QALITA's Claude Code skills (currently one exists, buried in
 `packs/.claude/skills/`) into a dedicated, publicly-shareable repo
-(`qalita-io/skills`) structured as a Claude Code plugin marketplace. Internal
+(`qalita/skills`) structured as a Claude Code plugin marketplace. Internal
 QALITA engineers and external clients/partners should be able to install just
 the skill(s) relevant to them.
 
@@ -21,8 +21,8 @@ env vars) — not QALITA's own prod cluster.
 
 ## Repo layout
 
-New repo `qalita-io/skills`, cloned locally at `~/qalita/skills/` alongside
-the other qalita-io repos (added to the table in `~/qalita/AGENTS.md`).
+New repo `qalita/skills`, cloned locally at `~/qalita/skills/` alongside
+the other qalita repos (added to the table in `~/qalita/AGENTS.md`).
 
 Structured as a Claude Code plugin **marketplace** with three independent
 plugins (mirrors the `superpowers` plugin layout under
@@ -79,8 +79,8 @@ production-quality: pack folder structure, `properties.yaml`,
 2. Delete `packs/.claude/skills/` from the `packs` repo.
 3. Update the "Creating a New Pack" section of `packs/AGENTS.md` to point at
    the new marketplace plugin instead of the local path (e.g. "install the
-   `qalita-pack-creation` plugin from the `qalita-io/skills` marketplace:
-   `/plugin marketplace add qalita-io/skills` then
+   `qalita-pack-creation` plugin from the `qalita/skills` marketplace:
+   `/plugin marketplace add qalita/skills` then
    `/plugin install qalita-pack-creation@qalita-skills`").
 4. Commit both changes in the `packs` repo as a separate commit from the new
    `skills` repo work.
@@ -146,12 +146,12 @@ this skill teaches the generic/public deployment path only.
   files) — can be added later, not needed for a first working marketplace.
 - Publishing the marketplace to the official Anthropic directory — this is
   a QALITA-owned marketplace added manually via
-  `/plugin marketplace add qalita-io/skills`.
+  `/plugin marketplace add qalita/skills`.
 
 ## Execution notes
 
 - New repo is git-initialized locally at `~/qalita/skills/` (branch `main`).
-- A remote GitHub repo `qalita-io/skills` will be created **private** and
+- A remote GitHub repo `qalita/skills` will be created **private** and
   pushed to during implementation. Confirmed intent to make it **public**
   later (once content is reviewed), but that switch is out of scope for
   this iteration.

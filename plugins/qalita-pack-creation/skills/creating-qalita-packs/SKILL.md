@@ -31,7 +31,7 @@ icon: icon.png
 name: null_rate            # bare name, NO _pack suffix (dir = <name>_pack)
 tags: [Data Quality]       # free-form domain tags
 type: completeness         # quality dimension: accuracy|completeness|consistency|interoperability|reasonability|schema|timeliness|uniqueness|validity
-url: https://github.com/qalita-io/packs/tree/main/null_rate_pack
+url: https://github.com/qalita/packs/tree/main/null_rate_pack
 version: 1.0.0             # THE published version; bumped by scripts/bump_pack_versions.sh
 visibility: public
 ```

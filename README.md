@@ -19,7 +19,7 @@ Each plugin is independent — install only the one(s) relevant to you.
 ## Installation
 
 ```
-/plugin marketplace add qalita-io/skills
+/plugin marketplace add qalita/skills
 /plugin install qalita-pack-creation@qalita-skills
 /plugin install qalita-platform-cli@qalita-skills
 /plugin install qalita-deployment@qalita-skills

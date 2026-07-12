@@ -24,7 +24,7 @@ docker login registry.qalita.io   # username + license key
 Images are pinned to your licensed version tag (e.g. `2.16.2`) — `registry.qalita.io` does not serve `latest`.
 
 Minimal stack (`docker-compose.yaml`): `backend`, `doc`, `frontendprod`, `db` (postgres), `cache` (redis), `s3` (seaweedfs, needs a sibling `s3_config.json`). Full reference:
-[qalita-io/tutorials/deploy/docker-compose](https://github.com/qalita-io/tutorials/tree/main/deploy/docker-compose).
+[qalita/tutorials/deploy/docker-compose](https://github.com/qalita/tutorials/tree/main/deploy/docker-compose).
 
 Key backend env vars:
 

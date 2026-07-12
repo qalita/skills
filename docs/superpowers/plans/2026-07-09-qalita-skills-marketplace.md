@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Stand up `qalita-io/skills` as a Claude Code plugin marketplace with three independently-installable plugins (pack creation, platform CLI usage, platform deployment), migrating the existing `creating-qalita-packs` skill out of the `packs` repo in the process.
+**Goal:** Stand up `qalita/skills` as a Claude Code plugin marketplace with three independently-installable plugins (pack creation, platform CLI usage, platform deployment), migrating the existing `creating-qalita-packs` skill out of the `packs` repo in the process.
 
 **Architecture:** A marketplace repo (`.claude-plugin/marketplace.json`) referencing three plugin directories under `plugins/`, each with its own `.claude-plugin/plugin.json` and a `skills/<skill-name>/SKILL.md`. No build step — these are static Markdown/JSON files loaded directly by Claude Code's plugin system, so "tests" are structural/JSON validity checks, not unit tests.
 
@@ -10,10 +10,10 @@
 
 ## Global Constraints
 
-- Repo: `~/qalita/skills/` locally, remote `qalita-io/skills` on GitHub, **private** (confirmed intent to make public later — not part of this plan).
-- Content must stay generic/public-safe: no internal QALITA infra details (Zot registry, Infisical paths, internal namespaces, GH_PAT). Deployment skill documents only the public path (`registry.qalita.io`, `helm.qalita.io`, the public `qalita-io/tutorials` docker-compose example).
+- Repo: `~/qalita/skills/` locally, remote `qalita/skills` on GitHub, **private** (confirmed intent to make public later — not part of this plan).
+- Content must stay generic/public-safe: no internal QALITA infra details (Zot registry, Infisical paths, internal namespaces, GH_PAT). Deployment skill documents only the public path (`registry.qalita.io`, `helm.qalita.io`, the public `qalita/tutorials` docker-compose example).
 - Default branch: `main`.
-- License: Apache License 2.0 (matches the public/open positioning of `qalita-io/packs`, unlike the proprietary EULA used for the core product).
+- License: Apache License 2.0 (matches the public/open positioning of `qalita/packs`, unlike the proprietary EULA used for the core product).
 - Every SKILL.md needs YAML frontmatter with exactly `name` and `description` fields (matches the format already used by `packs/.claude/skills/creating-qalita-packs/SKILL.md` and by the installed `superpowers` plugin).
 
 ---
@@ -254,7 +254,7 @@ Each plugin is independent — install only the one(s) relevant to you.
 ## Installation
 
 ```
-/plugin marketplace add qalita-io/skills
+/plugin marketplace add qalita/skills
 /plugin install qalita-pack-creation@qalita-skills
 /plugin install qalita-platform-cli@qalita-skills
 /plugin install qalita-deployment@qalita-skills
@@ -312,21 +312,21 @@ git commit -m "chore: scaffold qalita-skills repo (README, LICENSE)"
       "description": "Create and publish QALITA data quality packs (properties.yaml, pack_conf.json, main.py pattern, versioning, CI publish).",
       "category": "development",
       "source": "./plugins/qalita-pack-creation",
-      "homepage": "https://github.com/qalita-io/skills/tree/main/plugins/qalita-pack-creation"
+      "homepage": "https://github.com/qalita/skills/tree/main/plugins/qalita-pack-creation"
     },
     {
       "name": "qalita-platform-cli",
       "description": "Use the qalita CLI/worker to authenticate, push sources and packs, run analyses, and manage jobs on the QALITA platform.",
       "category": "data",
       "source": "./plugins/qalita-platform-cli",
-      "homepage": "https://github.com/qalita-io/skills/tree/main/plugins/qalita-platform-cli"
+      "homepage": "https://github.com/qalita/skills/tree/main/plugins/qalita-platform-cli"
     },
     {
       "name": "qalita-deployment",
       "description": "Deploy and configure the QALITA platform via Docker Compose or Helm, including LDAP, SMTP, and worker deployment.",
       "category": "infrastructure",
       "source": "./plugins/qalita-deployment",
-      "homepage": "https://github.com/qalita-io/skills/tree/main/plugins/qalita-deployment"
+      "homepage": "https://github.com/qalita/skills/tree/main/plugins/qalita-deployment"
     }
   ]
 }
@@ -369,8 +369,8 @@ git commit -m "feat: add marketplace.json declaring 3 QALITA plugins"
     "name": "QALITA SAS",
     "email": "contact@qalita.io"
   },
-  "homepage": "https://github.com/qalita-io/skills",
-  "repository": "https://github.com/qalita-io/skills",
+  "homepage": "https://github.com/qalita/skills",
+  "repository": "https://github.com/qalita/skills",
   "license": "Apache-2.0",
   "keywords": ["qalita", "data-quality", "packs"],
   "skills": "./skills/"
@@ -444,10 +444,10 @@ with:
 ```markdown
 ## Creating a New Pack
 
-**REQUIRED SKILL:** Before creating a new pack (or modifying pack structure/config/versioning), install the `qalita-pack-creation` plugin from the [`qalita-io/skills`](https://github.com/qalita-io/skills) marketplace — it documents required files, config templates, the `main.py` pattern, versioning, and publishing.
+**REQUIRED SKILL:** Before creating a new pack (or modifying pack structure/config/versioning), install the `qalita-pack-creation` plugin from the [`qalita/skills`](https://github.com/qalita/skills) marketplace — it documents required files, config templates, the `main.py` pattern, versioning, and publishing.
 
 ```
-/plugin marketplace add qalita-io/skills
+/plugin marketplace add qalita/skills
 /plugin install qalita-pack-creation@qalita-skills
 ```
 ```
@@ -467,7 +467,7 @@ Expected: `removed`, then a count of `1` or more (new reference present).
 cd ~/qalita/packs
 git add -A AGENTS.md
 git status   # confirm .claude/skills deletion is staged
-git commit -m "docs: migrate creating-qalita-packs skill to qalita-io/skills marketplace"
+git commit -m "docs: migrate creating-qalita-packs skill to qalita/skills marketplace"
 ```
 
 ---
@@ -494,8 +494,8 @@ git commit -m "docs: migrate creating-qalita-packs skill to qalita-io/skills mar
     "name": "QALITA SAS",
     "email": "contact@qalita.io"
   },
-  "homepage": "https://github.com/qalita-io/skills",
-  "repository": "https://github.com/qalita-io/skills",
+  "homepage": "https://github.com/qalita/skills",
+  "repository": "https://github.com/qalita/skills",
   "license": "Apache-2.0",
   "keywords": ["qalita", "cli", "worker", "data-quality"],
   "skills": "./skills/"
@@ -653,8 +653,8 @@ git commit -m "feat: add qalita-platform-cli plugin (using-qalita-platform skill
     "name": "QALITA SAS",
     "email": "contact@qalita.io"
   },
-  "homepage": "https://github.com/qalita-io/skills",
-  "repository": "https://github.com/qalita-io/skills",
+  "homepage": "https://github.com/qalita/skills",
+  "repository": "https://github.com/qalita/skills",
   "license": "Apache-2.0",
   "keywords": ["qalita", "deployment", "helm", "docker-compose", "ldap"],
   "skills": "./skills/"
@@ -690,7 +690,7 @@ docker login registry.qalita.io   # username + license key
 Images are pinned to your licensed version tag (e.g. `2.16.2`) — `registry.qalita.io` does not serve `latest`.
 
 Minimal stack (`docker-compose.yaml`): `backend`, `doc`, `frontendprod`, `db` (postgres), `cache` (redis), `s3` (seaweedfs, needs a sibling `s3_config.json`). Full reference:
-[qalita-io/tutorials/deploy/docker-compose](https://github.com/qalita-io/tutorials/tree/main/deploy/docker-compose).
+[qalita/tutorials/deploy/docker-compose](https://github.com/qalita/tutorials/tree/main/deploy/docker-compose).
 
 Key backend env vars:
 
@@ -902,11 +902,11 @@ Expected: both empty (nothing to commit).
 
 - [ ] **Step 2: Create the private GitHub repo**
 
-**Confirm with the user immediately before running this** — it creates a new repo under the `qalita-io` org, a shared/visible action.
+**Confirm with the user immediately before running this** — it creates a new repo under the `qalita` org, a shared/visible action.
 
 ```bash
 cd ~/qalita/skills
-gh repo create qalita-io/skills --private --source=. --remote=origin --description "QALITA's official Claude Code skills marketplace"
+gh repo create qalita/skills --private --source=. --remote=origin --description "QALITA's official Claude Code skills marketplace"
 ```
 
 - [ ] **Step 3: Push the skills repo**
@@ -932,10 +932,10 @@ Expected: push succeeds.
 In `~/qalita/AGENTS.md`, add a row to the `## Repos` table:
 
 ```markdown
-| qalita-io/skills          | `skills/`           | Marketplace de Claude Code skills QALITA |
+| qalita/skills          | `skills/`           | Marketplace de Claude Code skills QALITA |
 ```
 
 - [ ] **Step 6: Verify the remote is reachable**
 
-Run: `gh repo view qalita-io/skills --json name,visibility,url`
+Run: `gh repo view qalita/skills --json name,visibility,url`
 Expected: JSON showing `"name": "skills"`, `"visibility": "PRIVATE"`, and the repo URL.
