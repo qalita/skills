@@ -52,6 +52,10 @@ visibility: public
 
 `job` holds pack-specific defaults read via `pack.pack_config["job"]`. Chart entries use exactly these four keys; `chart_type` is `text` or `bar_chart`. Emit a `score` metric (0–1, stringified) — it is the conventional headline.
 
+`charts` is **frozen**: it still renders for existing packs, but no new
+`chart_type` will be added to it. A new pack should use `pack.figures` (see
+"figures.json — explaining a metric" below) instead of adding to `charts`.
+
 ## pyproject.toml
 
 ```toml
@@ -142,9 +146,10 @@ pack.figures.save()              # writes figures.json
 empty `dims`/`measures` and duplicate dimension tuples, and `save()` raises if
 `of` or any `measures` name was never passed to `declare_measure`. See
 `packs/AGENTS.md` (section "Figures — expliquer les métriques") for the full
-contract — chunking pitfalls, the `uv.lock` trap, and what the guards do not
-catch — and `profiling_pack/main.py` / `numeric_validation_pack/main.py` for
-complete worked examples.
+contract — chunking pitfalls, the `LazyFrame`/`scan_data()` trap, the `uv.lock`
+trap, the freeze of `charts` above, and what the guards do not catch — and
+`profiling_pack/main.py` / `numeric_validation_pack/main.py` for complete worked
+examples.
 
 ## Verify and ship
 
