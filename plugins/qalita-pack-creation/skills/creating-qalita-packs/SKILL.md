@@ -52,6 +52,10 @@ visibility: public
 
 `job` holds pack-specific defaults read via `pack.pack_config["job"]`. Chart entries use exactly these four keys; `chart_type` is `text` or `bar_chart`. Emit a `score` metric (0–1, stringified) — it is the conventional headline.
 
+`charts` is **frozen**: it still renders for existing packs, but no new
+`chart_type` will be added to it. A new pack should use `pack.figures` (see
+"figures.json — explaining a metric" below) instead of adding to `charts`.
+
 ## pyproject.toml
 
 ```toml
@@ -114,6 +118,38 @@ with Pack() as pack:
 ```
 
 Conventions: fractional metric values stringified (`str(round(x, 2))`), counts stay `int`. Packs comparing two datasets also use `pack.load_data("target")` / `pack.df_target`. See `duplicates_finder_pack/main.py` for a full example including chunked-parquet aggregation via `qalita_core.aggregation`.
+
+### figures.json — explaining a metric
+
+`pack.figures` (alongside `pack.metrics` / `pack.recommendations`) writes
+`figures.json`: aggregates that explain a metric, rendered by the platform. A
+pack declares an **intention** (`breakdown`, `composition`, `distribution`,
+`trend`, `comparison`, `matrix`, `flow`), never a chart type.
+
+```python
+pack.figures.declare_measure(
+    "p_missing", unit="ratio", direction="lower_is_better", target=0.05
+)
+pack.figures.add(
+    "missing_by_column",
+    intent="breakdown",          # what contributes to the number
+    of="p_cells_missing",        # the metric this figure explains
+    frame=df,                    # must be an aggregate, never raw rows
+    dims=["column"],
+    measures=["p_missing"],
+    scope={"perimeter": "dataset", "value": name},
+)
+pack.figures.save()              # writes figures.json
+```
+
+`frame` must be an aggregate (one row per dimension tuple) — `add()` rejects
+empty `dims`/`measures` and duplicate dimension tuples, and `save()` raises if
+`of` or any `measures` name was never passed to `declare_measure`. See
+`packs/AGENTS.md` (section "Figures — expliquer les métriques") for the full
+contract — chunking pitfalls, the `LazyFrame`/`scan_data()` trap, the `uv.lock`
+trap, the freeze of `charts` above, and what the guards do not catch — and
+`profiling_pack/main.py` / `numeric_validation_pack/main.py` for complete worked
+examples.
 
 ## Verify and ship
 
