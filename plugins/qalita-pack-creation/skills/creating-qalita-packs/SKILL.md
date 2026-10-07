@@ -86,13 +86,9 @@ from qalita_core.utils import determine_recommendation_level
 import pandas as pd
 
 with Pack() as pack:
-    if pack.source_config.get("type") == "database":
-        toq = pack.source_config.get("config", {}).get("table_or_query")
-        if not toq:
-            raise ValueError("database source requires 'table_or_query' in config")
-        pack.load_data("source", table_or_query=toq)
-    else:
-        pack.load_data("source")
+    # load_data reads config.table_or_query itself: a table, a list, a query,
+    # or every table of a database when it is unset.
+    pack.load_data("source")
 
     # pack.df_source may be: a DataFrame, a list of DataFrames,
     # or parquet path string(s) (chunked big-data mode) — handle all three.
@@ -166,3 +162,4 @@ examples.
 - Bumping `pyproject.toml` version instead of `properties.yaml` — only `properties.yaml` is published.
 - Using `license = {text = "Apache-2.0"}` — existing packs declare `Proprietary` with the QALITA LICENSE file.
 - Numeric metric `value` as float — the platform expects stringified fractions.
+- Testing `source_config["type"] == "database"` — no source has that type: databases are `postgresql`, `mysql`, `oracle`, `mssql`, `sqlite`, `snowflake`… The check is silently never true. To tell a database from files, test that the type is *not* a file one (`file`, `csv`, `excel`, `json`, `parquet`, `folder`, `s3`, `gcs`, `azure_blob`, `hdfs`), as `schema_scanner_pack` does.
